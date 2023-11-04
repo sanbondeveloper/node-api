@@ -105,3 +105,40 @@ describe("POST /users", () => {
     });
   });
 });
+
+describe("PUT /users/:id", () => {
+  describe("성공시", () => {
+    it("변경된 name을 응답한다.", (done) => {
+      const name = "chally";
+      request(app)
+        .put("/users/3")
+        .send({ name })
+        .end((err, res) => {
+          res.body.should.have.property("name", name);
+          done();
+        });
+    });
+  });
+
+  describe("실패시", () => {
+    it("정수가 아닌 id일 경우 400 응답", (done) => {
+      request(app).put("/users/one").expect(400).end(done);
+    });
+
+    it("name이 없을 경우 400 응답", (done) => {
+      request(app).put("/users/1").send({}).expect(400).end(done);
+    });
+
+    it("없는 유저일 경우 404 응답", (done) => {
+      request(app)
+        .put("/users/999")
+        .send({ name: "foo" })
+        .expect(404)
+        .end(done);
+    });
+
+    it("이름이 중복일 경우 409 응답", (done) => {
+      request(app).put("/users/3").send({ name: "bek" }).expect(409).end(done);
+    });
+  });
+});
