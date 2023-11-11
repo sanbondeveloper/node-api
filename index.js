@@ -11,8 +11,4 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/users", user);
 
-// app.listen(3000, () => {
-//   console.log("here");
-// });
-
 module.exports = app;
