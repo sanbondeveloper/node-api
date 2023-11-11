@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./index.spec.js",
-    "start": "node ./index.js"
+    "test": "cross-env NODE_ENV=test mocha api/user/user.spec.js",
+    "start": "node bin/www.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "cross-env": "^7.0.3",
     "express": "^4.18.2",
     "morgan": "^1.10.0"
   },
